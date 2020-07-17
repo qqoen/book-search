@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book search</title>
+
+    <link rel="stylesheet" href="./node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="./assets/main.css">
+</head>
+<body>
+    <div class="section" id="app">
+        <nav class="navbar is-fixed-top">
+            <div class="navbar-brand">
+                <div class="navbar-item">
+                    <router-link to="/" class="title">Book search</router-link>
+                </div>
+            </div>
+
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    class="input is-primary"
+                                    v-model="query">
+                            </div>
+
+                            <div class="control">
+                                <button
+                                    class="button is-primary"
+                                    @click="search"
+                                    :disabled="isLoading || query === ''">Search</button>
+                            </div>
+
+                            <div class="control">
+                                <button
+                                    class="button"
+                                    @click="clear"
+                                    :disabled="isLoading">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="navbar-item">
+                        <div class="field">
+                            <div class="control">
+                                <router-link to="/favorites" class="button is-info">Favorites</router-link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <router-view></router-view>
+        </div>
+    </div>
+    
+    <script src="./src/index.ts"></script>
+</body>
+</html>
