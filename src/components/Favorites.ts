@@ -1,4 +1,4 @@
-import { favorites } from '../service';
+import { getFavorites } from '../service';
 
 export default {
     template: `<div>
@@ -9,16 +9,22 @@ export default {
             <ul>
                 <li v-for="book in favorites">
                     <router-link :to="'/details/' + book.id">
-                        <span>{{book.title}}</span>
+                        <span>{{book.title}} ({{book.authors}})</span>
                     </router-link>
                 </li>
             </ul>
         </div>`,
-    data: () => ({
-        favorites: Object.keys(favorites).map((key) => {
-            const book = favorites[key];
-            book.id = key;
-            return book;
-        }),
-    }),
+    data: () => {
+        const favoritesObj = getFavorites();
+        const favorites = Object.keys(favoritesObj)
+            .map((key) => {
+                const book = favoritesObj[key];
+                book.id = key;
+                return book;
+            });
+
+        return {
+            favorites
+        };
+    },
 };

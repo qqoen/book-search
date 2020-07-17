@@ -1,3 +1,7 @@
 .navbar {
     box-shadow: 0px 1px 4px #777;
 }
+
+.book-cover {
+    width: 128px;
+}

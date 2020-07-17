@@ -6,6 +6,10 @@ export default {
                 <span class="subtitle">{{book.title}}</span> by {{book.authors}}
             </div>
 
+            <figure class="image book-cover mt-5" v-if="book.cover">
+                <img :src="book.cover" />
+            </figure>
+
             <div v-if="isLoading">Loading...</div>
 
             <div class="field mt-5">
@@ -47,11 +51,19 @@ export default {
         fetch(api)
             .then((res) => res.json())
             .then((data) => {
-                this.book = data[key];
-                this.book.authors = data[key].authors.reduce((acc, cur, idx) => {
+                const authors = data[key].authors.reduce((acc, cur, idx) => {
                     const sep = idx === 0 ? '' : ', ';
                     return acc + sep + cur.name;
                 }, '');
+
+                this.book = {
+                    title: data[key].title,
+                    authors,
+                };
+
+                if (data[key].cover != null) {
+                    this.book.cover = data[key].cover.medium;
+                }
 
                 this.isLoading = false;
             })

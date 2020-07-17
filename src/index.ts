@@ -46,10 +46,12 @@ const app = new Vue({
                 .then((res) => res.json())
                 .then((data) => {
                     this.books = data.docs
-                        .filter((x) => x.isbn && x.isbn.length > 0)
+                        // filter out books without needed data 
+                        .filter((x) => x.author_name && x.author_name.length > 0 &&
+                            x.isbn && x.isbn.length > 0)
                         .map((x) => ({
                             title: x.title,
-                            author: x.author_name.length > 0 ? x.author_name[0] : '',
+                            author: x.author_name[0],
                             year: x.publish_year && x.publish_year.length > 0 ? x.publish_year[0] : undefined,
                             id: x.isbn[0],
                         }));
